@@ -90,8 +90,8 @@ router.post('/thumbnail', auth, (req, res) => {
     });
 });
 
+// 비디오 업로드
 router.post('/uploadVideo', auth, (req, res) => {
-  // 비디오 업로드
   const video = new Video(req.body);
   video.save((err, doc) => {
     if (err)
@@ -103,6 +103,20 @@ router.post('/uploadVideo', auth, (req, res) => {
       success: true,
     });
   });
+});
+
+// 서버에서 비디오 가져오기
+router.get('/getVideos', (req, res) => {
+  // populate를 해줘야 해당 아이디값의 모든 정보를 가져온다. 없으면 그냥 아이디만
+  Video.find()
+    .populate('writer')
+    .exec((err, videos) => {
+      if (err) return res.status(400).send(err);
+      res.status(200).json({
+        success: true,
+        videos,
+      });
+    });
 });
 
 module.exports = router;
