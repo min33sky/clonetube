@@ -22,7 +22,7 @@ const categoryOptions = [
 const VideoUploadPage = props => {
   const [videoTitle, setVideoTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [privacy, setPrivacy] = useState(null);
+  const [privacy, setPrivacy] = useState(0);
   const [category, setCategory] = useState('Film & Animation');
   const [videoFilePath, setVideoFilePath] = useState('');
   const [thumbnailPath, setThumbnailPath] = useState('');
@@ -108,7 +108,7 @@ const VideoUploadPage = props => {
         alert('비디오 업로드 성공 😊😍');
         setTimeout(() => {
           props.history.push('/');
-        }, 3000);
+        }, 1000);
       } else {
         alert('비디오 업로드 실패');
       }

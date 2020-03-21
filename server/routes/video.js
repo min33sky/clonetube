@@ -105,7 +105,7 @@ router.post('/uploadVideo', auth, (req, res) => {
   });
 });
 
-// 서버에서 비디오 가져오기
+// 서버에서 비디오 목록을 가져오기
 router.get('/getVideos', (req, res) => {
   // populate를 해줘야 해당 아이디값의 모든 정보를 가져온다. 없으면 그냥 아이디만
   Video.find()
@@ -116,6 +116,15 @@ router.get('/getVideos', (req, res) => {
         success: true,
         videos,
       });
+    });
+});
+
+router.post('/getVideoDetail', (req, res) => {
+  Video.findOne({ _id: req.body.videoId })
+    .populate('writer')
+    .exec((err, videoDetail) => {
+      if (err) return res.status(400).send(err);
+      return res.status(200).json({ success: true, videoDetail });
     });
 });
 

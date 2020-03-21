@@ -8,6 +8,7 @@ import RegisterPage from './views/RegisterPage/RegisterPage.js';
 import NavBar from './views/NavBar/NavBar';
 import Footer from './views/Footer/Footer';
 import VideoUploadPage from './views/VideoUploadPage';
+import VideoDetailPage from './views/VideoDetailPage';
 
 function App() {
   return (
@@ -22,6 +23,11 @@ function App() {
             exact
             path='/video/upload'
             component={Auth(VideoUploadPage, true)}
+          />
+          <Route
+            exact
+            path='/video/:videoId'
+            component={Auth(VideoDetailPage, null)}
           />
         </Switch>
       </div>
