@@ -16,7 +16,8 @@ router.post('/subscribeNumber', (req, res) => {
 });
 
 // 동영상 제공자에게 구독했는지 유무
-router.post('/subscribed', (req, res) => {
+router.post('/subcribed', (req, res) => {
+  console.log('구독 유무 #####################################');
   Subscriber.find({
     userTo: req.body.userTo, // 동영상 제공자
     userFrom: req.body.userFrom, // 로그인 한 사람 (나)

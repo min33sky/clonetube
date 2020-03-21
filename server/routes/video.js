@@ -3,6 +3,7 @@ const router = express.Router();
 const multer = require('multer');
 const { auth } = require('../middleware/auth');
 const ffmpeg = require('fluent-ffmpeg');
+const { Subscriber } = require('../models/Subscriber');
 const { Video } = require('../models/Video');
 
 // STORAGE MULTER CONFIG
@@ -126,6 +127,28 @@ router.post('/getVideoDetail', (req, res) => {
       if (err) return res.status(400).send(err);
       return res.status(200).json({ success: true, videoDetail });
     });
+});
+
+router.post('/getSubscriptionVideos', auth, (req, res) => {
+  // 자신이 구독한 채널들을 가져오기
+  Subscriber.find({ userFrom: req.body.userFrom }).exec((err, docs) => {
+    if (err) return res.status(400).send(err);
+    const subscribedUser = [];
+    docs.map((v, i) => {
+      subscribedUser.push(v.userTo);
+    });
+
+    // 찾은 채널들의 비디오를 가져오기
+    Video.find({ writer: { $in: subscribedUser } })
+      .populate('writer')
+      .exec((err, videos) => {
+        if (err) return res.status(400).send(err);
+        return res.status(200).json({
+          success: true,
+          videos,
+        });
+      });
+  });
 });
 
 module.exports = router;
