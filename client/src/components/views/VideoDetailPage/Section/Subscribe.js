@@ -80,28 +80,24 @@ const Subscribe = ({ userTo, userFrom }) => {
     }
   };
 
-  if (userTo !== userFrom) {
-    return (
-      <div>
-        <button
-          style={{
-            backgroundColor: `${subscribed ? '#AAAAAA' : '#CC0000'}`,
-            borderRadius: '4px',
-            color: 'white',
-            padding: '10px 16px',
-            fontWeight: '500',
-            fontSize: '1rem',
-            textTransform: 'uppercase',
-          }}
-          onClick={onSubscribe}
-        >
-          {subscribeNumber} {subscribed ? 'Subscribed' : 'Subscribe'}
-        </button>
-      </div>
-    );
-  } else {
-    return '';
-  }
+  return (
+    <div>
+      <button
+        style={{
+          backgroundColor: `${subscribed ? '#AAAAAA' : '#CC0000'}`,
+          borderRadius: '4px',
+          color: 'white',
+          padding: '10px 16px',
+          fontWeight: '500',
+          fontSize: '1rem',
+          textTransform: 'uppercase',
+        }}
+        onClick={onSubscribe}
+      >
+        {subscribeNumber} {subscribed ? 'Subscribed' : 'Subscribe'}
+      </button>
+    </div>
+  );
 };
 
 export default Subscribe;

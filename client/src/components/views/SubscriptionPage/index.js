@@ -31,7 +31,7 @@ function SubscriptionPage() {
 
     return (
       <Col lg={6} md={8} xs={24}>
-        <div style={{ position: 'relative' }}>
+        <div key={idx} style={{ position: 'relative' }}>
           <Link to={`/video/${v._id}`}>
             <img
               style={{ width: '100%' }}
