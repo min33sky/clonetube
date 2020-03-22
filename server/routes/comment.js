@@ -8,13 +8,15 @@ router.post('/saveComment', auth, (req, res) => {
   comment.save((err, doc) => {
     if (err) return res.status(400).send(err);
     // 작성자의 정보까지 populate해서 가져오자
-    Comment.find({ _id: doc._id }).exec((err, result) => {
-      if (err) return res.status(400).send(err);
-      return res.status(200).json({
-        success: true,
-        result,
+    Comment.find({ _id: doc._id })
+      .populate('writer')
+      .exec((err, result) => {
+        if (err) return res.status(400).send(err);
+        return res.status(200).json({
+          success: true,
+          result,
+        });
       });
-    });
   });
 });
 
