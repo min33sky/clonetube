@@ -4,6 +4,7 @@ import axios from 'axios';
 import VideoSidePage from './Section/VideoSidePage';
 import Subscribe from './Section/Subscribe';
 import Comment from './Section/Comment';
+import LikeDislikes from './Section/LikeDislikes';
 
 const VideoDetailPage = props => {
   const videoId = props.match.params.videoId;
@@ -34,11 +35,21 @@ const VideoDetailPage = props => {
     });
   }, []);
 
+  // 댓글 작성 시 업데이트
   const updateComment = newComment => {
     setCommentLists(CommentLists.concat(newComment));
   };
 
+  // 서버에서 응답이 오면 랜더링
   if (Video.writer) {
+    const SubscribeButton = Video.writer._id !==
+      localStorage.getItem('userId') && (
+      <Subscribe
+        userTo={Video.writer._id}
+        userFrom={localStorage.getItem('userId')}
+      />
+    );
+
     return (
       <Row>
         <Col lg={18} xs={24}>
@@ -54,10 +65,11 @@ const VideoDetailPage = props => {
 
             <List.Item
               actions={[
-                <Subscribe
-                  userTo={Video.writer._id}
-                  userFrom={localStorage.getItem('userId')}
+                <LikeDislikes
+                  userId={localStorage.getItem('userId')}
+                  videoId={videoId}
                 />,
+                SubscribeButton,
               ]}
             >
               <List.Item.Meta

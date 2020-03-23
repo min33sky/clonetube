@@ -4,6 +4,7 @@ import SingleComment from './SingleComment';
 const ReplyComment = props => {
   const [ChildCommentNumber, setChildCommentNumber] = useState(0);
   const [OpenReplyComments, setOpenReplyComments] = useState(false);
+
   useEffect(() => {
     let commentNumber = 0;
     props.commentLists.map(comment => {
@@ -43,7 +44,12 @@ const ReplyComment = props => {
     <div>
       {ChildCommentNumber > 0 && (
         <p
-          style={{ fontSize: '14px', margin: 0, color: 'gray' }}
+          style={{
+            fontSize: '14px',
+            margin: 0,
+            color: 'gray',
+            cursor: 'pointer',
+          }}
           onClick={handleChange}
         >
           View {ChildCommentNumber} more comment(s)
